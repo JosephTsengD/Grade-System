@@ -1,0 +1,14 @@
+﻿using System.Data;
+/// <summary>
+/// 存入資料庫所需欄位及對應值組成的資料結構
+/// </summary>
+namespace Writting
+{
+    public class DBDataField
+    {
+        public string field { get; set; }//欄位
+        public string value { get; set; }//值
+        public SqlDbType sqlDbType { get; set; }
+        public int size { get; set; }
+    }
+}

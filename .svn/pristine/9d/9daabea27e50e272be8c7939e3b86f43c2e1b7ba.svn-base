@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Collaborative
+{
+    public partial class ForumDisp : System.Web.UI.Page
+    {
+        public static string id;
+        public static string subject;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                id = Request.QueryString["id"];                
+                List<String> original_content = DBMSSQL.getSingleData("SELECT async_subject FROM collaborative_AsyncIndex WHERE id = '" + id +"'");
+                subject = original_content[0].ToString();
+            }
+        }
+
+        protected void Reply_Click(object sender, EventArgs e)
+        {            
+            string reply_content = HttpUtility.HtmlDecode(editorTextBox.Text.ToString());
+            string reply_author = "testAuthor";            
+            string cmd = "";
+            cmd = "INSERT INTO Collaborative_AsyncReply ([asyncre_id], [asyncre_author], [asyncre_content], [asyncre_time]) VALUES ('" + System.Convert.ToInt32(id) + "','" + reply_author + "','" + reply_content + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+            DBMSSQL.Update(cmd);
+            List<String> replyNum = DBMSSQL.getSingleData("SELECT COUNT(asyncre_id) FROM Collaborative_AsyncReply WHERE asyncre_id = '" + id + "'");
+            cmd = "UPDATE Collaborative_AsyncIndex SET num_reply = '" + System.Convert.ToInt32(replyNum[0]) + "' WHERE id = '" + System.Convert.ToInt32(id) + "'";
+            DBMSSQL.Update(cmd);
+            Response.Redirect("~/Collaborative/ForumDisp.aspx?id="+id);
+        }
+    }
+}

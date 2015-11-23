@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Single_Writing
+{
+    public partial class Create_PNMAP : System.Web.UI.Page
+    {
+        static string article_id;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            
+            
+            
+        }
+
+        protected void CreatePNMAP(object sender, EventArgs e)
+        {
+            article_id = Request.QueryString["Article_id"];//從網址取得Article_id資訊   
+            //↓  Writing_PN_MAP  ↓
+            string neg_attr = Neg_Attribute.Text.ToString();
+            string process = Processing.Text.ToString();
+            string pos_attr = Pos_Attribute.Text.ToString();
+            string neg_feature = Neg_Feature.Text.ToString();
+            string pro_feature = Pro_Feature.Text.ToString();
+            string pos_feature = Pos_Feature.Text.ToString();
+
+
+
+            string cmdForPNMAP = "INSERT INTO Writing_PN_MAP ([Article_id],[Neg_Attr],[Pro_Attr],[Pos_Attr],[Neg_Fea],[Pro_Fea],[Pos_Fea]) VALUES('" + article_id + "','" + neg_attr + "','" + process + "','" + pos_attr + "','" + neg_feature + "','" + pro_feature + "','" + pos_feature + "') ";
+            DBMSSQL.Update(cmdForPNMAP);
+            Response.Write("<script LANGUAGE='JavaScript' >alert('完成輸入')</script>");
+            Response.Redirect("./showMainData.aspx");
+       
+
+        }
+            
+    }
+}

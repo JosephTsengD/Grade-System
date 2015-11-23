@@ -1,0 +1,32 @@
+/** ----------------------------------------------------------------------------------------------------------------------
+testCalculateTotalGrade 
+aGrade: ID 962001051 name§õ«Â§Ê lab1 81  lab2 98  lab3 84  midTerm 90 finalExam 93
+
+case 1: lab1 0.1  lab2 0.1  lab3 0.1  midTerm 0.3  finalExam 0.4
+
+------------------------------------------------------------------------------------------------------------------------- */
+
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+
+public class testCalculateTotalGrade {
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

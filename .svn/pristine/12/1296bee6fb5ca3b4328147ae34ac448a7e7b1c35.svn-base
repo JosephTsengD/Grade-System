@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Writting;
+
+namespace Writting.Single_Writing
+{
+    public partial class Create_Article : System.Web.UI.Page
+    {
+        private List<List<string>> TitleList;
+
+        //驗證題目是否已經存在Title資料表中
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            TitleList = DBMSSQL.getDataCollection("SELECT [Id], [Title] FROM Writing_Title ");
+        }
+        private int checkForTitle(string title)
+        {
+            bool boolInsert = true;
+            if (TitleList != null)
+            {
+                foreach (List<string> item in TitleList)
+                {
+                    if (title == item[1])//item[0]=Id,item[1]=Title
+                    {
+                        boolInsert = false;
+                        return System.Convert.ToInt32(item[0]);//若有該作文題目,回傳Id
+                    }
+                }
+                if (boolInsert)
+                {
+                    string cmd = "INSERT INTO Writing_Title ([Title]) VALUES ('" + title + "')";//若無該作文題目，則新增至Writing_Title中
+                    DBMSSQL.Update(cmd);
+                }
+            }
+            
+            List<string> returnTitleId = DBMSSQL.getSingleData("SELECT Id FROM Writing_Title WHERE Title = '" + title + "'");
+
+            return System.Convert.ToInt32(returnTitleId[0]);
+
+        }
+
+       
+
+        protected void CreateArticle(object sender, EventArgs e)
+        {
+            string title = Title_Name.Text.ToString();
+            string extended = Extended_Mean.Text.ToString();
+            string keynote = KeyNote.Text.ToString();
+            string cmdforArticle = "";
+
+            int  Titlecheck = checkForTitle(title);
+
+            cmdforArticle = "INSERT INTO Writing_Main ([Title_id],[Extended_Mean],[Keynote]) VALUES ('" + Titlecheck + "','" + extended + "','" + keynote + "')";
+            DBMSSQL.Update(cmdforArticle);
+            //↑  Writing_Main    ↑
+            
+
+
+
+
+
+           
+            
+            Response.Write("<script LANGUAGE='JavaScript' >alert('完成輸入')</script>");
+            Response.Redirect("./showMainData.aspx");
+
+        }
+
+        
+
+       
+    }
+}

@@ -1,0 +1,48 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="edit_PNmap.aspx.cs" MasterPageFile="~/Single_Writing/Single.Master" Inherits="Writting.Single_Writing.edit_PNmap" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="FeaturedContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+    <div>
+    
+        <asp:Label ID="Label1" runat="server" Font-Size="20pt" Text="取材編輯區"></asp:Label>
+        <hr />
+        <br />
+    
+    </div>
+        <asp:Label ID="Label2" runat="server" Text="[反方] 狀態"></asp:Label>
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:TextBox ID="Neg_Attr" runat="server" Height="20px" ></asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+        <asp:Label ID="Label3" runat="server" Text="[過程] 狀態"></asp:Label>
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:TextBox ID="Pro_Attr" runat="server" Height="20px"></asp:TextBox>
+        <br />
+        <asp:Label ID="Label4" runat="server" Text="[正方] 狀態"></asp:Label>
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:TextBox ID="Pos_Attr" runat="server" Height="20px"></asp:TextBox>
+        <br />
+        <asp:Label ID="Label5" runat="server" Text="[反方] 特徵描述"></asp:Label>
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:TextBox ID="Neg_Feat" runat="server" Height="20px"></asp:TextBox>
+        <br />
+        <asp:Label ID="Label6" runat="server" Text="[過程] 狀態描述"></asp:Label>
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:TextBox ID="Pro_Feat" runat="server" Height="20px"></asp:TextBox>
+        <br />
+        <asp:Label ID="Label7" runat="server" Text="[正方]特徵描述"></asp:Label>
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:TextBox ID="Pos_Feat" runat="server" Height="20px"></asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button1" runat="server" Text="送出資料" OnClick="editPNmap" />
+    </asp:Content>

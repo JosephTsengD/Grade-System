@@ -1,0 +1,32 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Create_Article.aspx.cs" Inherits="Writting.Single_Writing.Create_Article" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+           <asp:Label ID="Label1" runat="server" Text="作文題目"></asp:Label>
+        <p>
+           <asp:TextBox ID="Title_Name" runat="server" Height="20px"></asp:TextBox>
+        </p>
+        <p>
+           <asp:Label ID="Label2" runat="server" Text="題目衍生意義"></asp:Label>
+        </p>
+        <p>
+           <asp:TextBox ID="Extended_Mean" runat="server" Height="20px"></asp:TextBox>
+        </p>
+        <p>
+           <asp:Label ID="Label3" runat="server" Text="作文主旨"></asp:Label>
+        </p>
+           <asp:TextBox ID="KeyNote" runat="server" Height="20px"></asp:TextBox>
+       
+         <p>
+           <asp:Button ID="create" runat="server" Text="送出並建立" OnClick="CreateArticle" />
+        </p>
+    </form>
+</body>
+</html>

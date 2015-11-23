@@ -1,0 +1,54 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="create_index.aspx.cs" MasterPageFile="~/Single_Writing/Single.Master" Inherits="Writting.Single_Writing.create_index" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="FeaturedContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+    <div>
+    
+        <asp:Label ID="Label1" runat="server" BackColor="#99CCFF" BorderColor="Blue" BorderStyle="Dashed" Font-Size="20pt" Height="34px" Text="文章題目列表" Width="178px"></asp:Label>
+        <hr />
+        <br />
+    
+    </div>
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" DataKeyNames="Id" DataSourceID="SqlDataSource1" >
+            <Columns>
+                <asp:TemplateField HeaderText="序號">
+                    <ItemTemplate>
+                    <%#Container.DataItemIndex + 1%></ItemTemplate>
+                    <HeaderStyle Wrap="False"  />
+                    <ItemStyle  HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="Id" HeaderText="題目流水號" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                <asp:BoundField DataField="Title" HeaderText="作文題目" SortExpression="Title" />
+                <asp:HyperLinkField DataNavigateUrlFields="Id" DataNavigateUrlFormatString="create_articleList.aspx?Id={0}" Text="開始編輯" />
+            </Columns>
+            <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+            <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+            <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+            <SortedAscendingCellStyle BackColor="#FFF1D4" />
+            <SortedAscendingHeaderStyle BackColor="#B95C30" />
+            <SortedDescendingCellStyle BackColor="#F1E5CE" />
+            <SortedDescendingHeaderStyle BackColor="#93451F" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" SelectCommand="SELECT * FROM [Writing_Title]" DeleteCommand="DELETE FROM Writing_Title WHERE EXISTS (SELECT Article_id, Title_id, Guidance_id, Arrangement_id, Extended_Mean, Keynote, PN_Map_id FROM Writing_Main WHERE (Title_id &lt;&gt; @Id))" InsertCommand="INSERT INTO [Writing_Title] ([Title]) VALUES (@Title)" UpdateCommand="UPDATE [Writing_Title] SET [Title] = @Title WHERE [Id] = @Id">
+            <DeleteParameters>
+                <asp:Parameter Name="Id" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="Title" Type="String" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="Title" Type="String" />
+                <asp:Parameter Name="Id" Type="Int32" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+        <br />
+        <br />
+        <asp:TextBox ID="Title" runat="server" Height="24px" Width="154px"></asp:TextBox>
+        <asp:Button ID="Button1" runat="server" OnClick="createTitle" Text="輸入要新增的題目" />
+   </asp:Content>

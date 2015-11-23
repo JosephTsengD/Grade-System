@@ -1,0 +1,49 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Create_PNMAP.aspx.cs" Inherits="Writting.Single_Writing.Create_PNMAP" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+     <p>
+            <asp:Label ID="Label4" runat="server" Text="PN_MAP 編輯"></asp:Label>
+        </p>
+           <p>
+               <asp:Label ID="Label5" runat="server" Text="反方狀態"></asp:Label>
+
+               <asp:Label ID="Label6" runat="server" Text="過程轉換狀態"></asp:Label>
+
+               <asp:Label ID="Label7" runat="server" Text="正方狀態"></asp:Label>
+        </p>
+           <p>
+               <asp:TextBox ID="Neg_Attribute" runat="server" Height="20px" Width="160px"></asp:TextBox>
+
+               <asp:TextBox ID="Processing" runat="server" Height="20px" Width="160px"></asp:TextBox>
+
+               <asp:TextBox ID="Pos_Attribute" runat="server" Height="20px" Width="160px"></asp:TextBox>
+        </p>
+           <p>
+               <asp:Label ID="Label8" runat="server" Text="反方Feature"></asp:Label>
+
+               <asp:Label ID="Label9" runat="server" Text="過程轉換Feature"></asp:Label>
+
+               <asp:Label ID="Label10" runat="server" Text="正方Feature"></asp:Label>
+        </p>
+           <p>
+               <asp:TextBox ID="Neg_Feature" runat="server" Height="20px" Width="160px"></asp:TextBox>
+
+               <asp:TextBox ID="Pro_Feature" runat="server" Height="20px"  Width="160px"></asp:TextBox>
+
+               <asp:TextBox ID="Pos_Feature" runat="server" Height="20px" Width="160px"></asp:TextBox>
+        </p>
+      
+    </div>
+        <asp:Button ID="creatPNM" runat="server" OnClick="CreatePNMAP" Text="送出並返回上頁" />
+    </form>
+</body>
+</html>

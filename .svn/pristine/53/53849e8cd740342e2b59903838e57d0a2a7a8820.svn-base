@@ -1,0 +1,94 @@
+﻿<%@ Page Language="C#"  MasterPageFile="~/Collaborative/Forum.Master" ValidateRequest="false" AutoEventWireup="true" CodeBehind="ForumDisp.aspx.cs" Inherits="Writting.Collaborative.ForumDisp" %>
+<asp:Content runat="server" ContentPlaceHolderID="FeaturedContent">
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup>
+                <h1><a href="ForumMain.aspx">討論區</a></h1>
+            </hgroup>            
+        </div>
+    </section>    
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="MainContent">
+    <asp:ListView ID="ListView1" runat="server" DataSourceID="SqlDataSource1" >
+        <ItemTemplate>
+            <table style="border-bottom:solid; border-right-width:medium; border-bottom-width:thin; border-left-width:thin; width:100%" >
+                <tr>
+                    <td style="height:60px; background-color:#0094ff;" colspan="2">
+                        <asp:Label ID="main_subjectLabel" runat="server" Text='<%# Eval("async_subject") %>' Font-size="Large" Font-Bold="true" ForeColor="Black"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label runat="server" Text="作者: " ForeColor="Black" Font-Size="Large" Font-Bold="true"></asp:Label>
+                        <asp:Label ID="main_authorLabel" runat="server" Text='<%# Eval("async_author") %>' ForeColor="Black" Font-Size="Large" Font-Bold="true" ></asp:Label>
+                    </td>
+                    <td style="float:right">
+                        <asp:Label runat="server" Text="發佈時間: " ForeColor="Black" Font-Size="Large" Font-Bold="true"></asp:Label>
+                        <asp:Label ID="main_lastUpdatetime" runat="server" Text='<%# Eval("async_time") %>' ForeColor="Black" Font-Size="Large" Font-Bold="true"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:Panel ID="contentPanel" runat="server" ScrollBars="None" HorizontalAlign="Center">                                                        
+                            <asp:Label ID="main_contentLabel" runat="server"  Width="95%" BorderStyle="Inset" BackColor="White" Font-Size="Larger" Text ='<%# Eval("async_content") %>' style="text-align:left; word-break:break-all" ></asp:Label>                            
+                        </asp:Panel>
+                    </td>                    
+                </tr>
+            </table>
+        </ItemTemplate>
+    </asp:ListView>
+
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" SelectCommand="SELECT [async_author], [async_subject], [async_content], [async_time] FROM [Collaborative_AsyncIndex] WHERE ([id] = @id)">
+        <SelectParameters>
+            <asp:QueryStringParameter DefaultValue="id" Name="id" QueryStringField="id" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    
+    
+    <asp:ListView ID="ListView2" runat="server" DataSourceID="SqlDataSource2">
+        <ItemTemplate>
+            <table style="border-bottom:solid; border-right-width:medium; border-bottom-width:thin; border-left-width:thin; width:100%; "  >                
+                <tr>
+                    <td style="height:60px; background-color:#f00" colspan="2">
+                        <asp:Label runat="server" Text="Re: " ForeColor="White" Font-Size="Large" Font-Bold="true"></asp:Label>
+                        <asp:Label runat="server" Text='<%# subject %>' ForeColor="White" Font-Size="Large" Font-Bold="true"></asp:Label>
+                    </td>
+                <tr>     
+                    <td>
+                        <asp:Label runat="server" Text="作者: " ForeColor="Black" Font-Size="Large" Font-Bold="true"></asp:Label>
+                        <asp:Label ID="re_authorLabel" runat="server" Text='<%# Eval("asyncre_author") %>' Font-size="Large" Font-Bold="true" ForeColor="Black"></asp:Label>
+                    </td>
+                    <td style="float:right">
+                        <asp:Label runat="server" Text="發佈時間: " ForeColor="Black" Font-Size="Large" Font-Bold="true"></asp:Label>
+                        <asp:Label ID="re_timeLabel" runat="server" Text='<%# Eval("asyncre_time") %>' ForeColor="Black" Font-Size="Large" Font-Bold="true"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:Panel ID="recontentPanel" runat="server" ScrollBars="None" HorizontalAlign="Center">                            
+                            <asp:Label ID="re_contentLabel" runat="server" Width="95%" BorderStyle="Inset" BackColor="White" Font-Size="Larger" Text='<%# Eval("asyncre_content") %>' style="text-align:left; word-break:break-all"></asp:Label>
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+        </ItemTemplate>
+    </asp:ListView>
+
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" SelectCommand="SELECT [asyncre_author], [asyncre_id], [asyncre_content], [asyncre_time] FROM [Collaborative_AsyncReply] WHERE ([asyncre_id] = @asyncre_id)">
+        <SelectParameters>
+            <asp:QueryStringParameter DefaultValue="id" Name="asyncre_id" QueryStringField="id" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+
+    <asp:Label ID="postLabel" runat="server" Text="新增留言" Font-Bold="true" ForeColor="Black" Font-Size="Large"></asp:Label>
+    <asp:TextBox ID="editorTextBox" runat="server" TextMode="MultiLine" CssClass="ckeditor"></asp:TextBox>
+    <div>
+        <script type="text/javascript">
+            CKEDITOR.replace('<%=editorTextBox.ClientID.Replace("_","$")%>');
+        </script>
+    </div>
+    <asp:Button ID="Reply_button" runat="server" Text="發送" OnClick="Reply_Click" />
+   
+</asp:Content>

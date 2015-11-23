@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
+
+namespace Writting.Single_Writing
+{
+    public partial class Test : System.Web.UI.Page
+    {
+        int x=0;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+           
+
+
+        }
+     
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string content = TextBox1.Text.ToString();
+          
+            string[] str1 = Regex.Split(content, @"\s+");
+
+            foreach (string i in str1)
+            {
+                if (i != " ")
+                {
+                    Response.Write(i.ToString() + "[" + x + "]");
+                }
+                x++;
+
+            }
+        }
+    }
+}

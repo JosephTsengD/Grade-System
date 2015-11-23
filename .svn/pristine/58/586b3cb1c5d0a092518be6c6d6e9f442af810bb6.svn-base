@@ -1,0 +1,42 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TestPage.aspx.cs" Inherits="Writting.Corpus.TestPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+     <form id="form1" runat="server">
+        <div id="ContentDiv">
+            <input type="button" id="button1" value="add text" />
+            <input type="submit" id="button2" value="submit" />
+            <input type="hidden" id="Count" name="Count" value="2" />
+            <div id="TextBoxDiv">
+                <input type="text" id="text1" name="text1" value="this is text1" /><br />
+            </div>
+            <div id="TextValueDiv">
+                <asp:Label runat="server" ID="Label1"></asp:Label>
+            </div>
+        </div>
+        </form>
+<script type="text/javascript" charset="utf-8" src="../Scripts/jquery-1.8.2.js"></script>   
+    <script>
+    $(function () {
+        $("#button1").click(addTextBox);
+    });
+
+    function addTextBox() {
+        var cObject = document.getElementById("Count");
+        var c = cObject.value;
+        var box = "<input type='text' id='text" + c + "' name='text" + c + "' value='this is text" + c + "' /><br />";
+        $("#TextBoxDiv > input:text:last").each(function () { $(this).next().after(box); });
+        var count = Number(c) + 1;
+        cObject.value = count;
+
+    }
+    </script>
+</body>
+    
+</html>

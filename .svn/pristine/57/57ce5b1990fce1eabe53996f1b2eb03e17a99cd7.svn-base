@@ -1,0 +1,74 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="scan_PNmapDetail.aspx.cs" MasterPageFile="~/Single_Writing/Single.Master" Inherits="Writting.Single_Writing.create_PNMAPDetail" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="FeaturedContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+
+    <div>
+    
+        <asp:Label ID="Label1" runat="server" Font-Size="20pt" Text="取材編輯結果"></asp:Label>
+        <br />
+        <asp:Button ID="Button2" runat="server" OnClick="Add_PNmap" Text="新增材料" />
+        <br />
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" DataKeyNames="Id" OnRowCreated="GridView1_RowCreated" Font-Size="8pt">
+            <AlternatingRowStyle BackColor="#CCCCCC" />
+            <Columns>
+                <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+                <asp:TemplateField HeaderText="序號">
+                    <ItemTemplate>
+                    <%#Container.DataItemIndex + 1%></ItemTemplate>
+                    <HeaderStyle Wrap="False"  />
+                    <ItemStyle  HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                <asp:BoundField DataField="Article_id" HeaderText="文章流水號" SortExpression="Article_id" />
+                <asp:BoundField DataField="Neg_Attr" HeaderText="[反方]狀態" SortExpression="Neg_Attr" />
+                <asp:BoundField DataField="Pro_Attr" HeaderText="[過程]狀態" SortExpression="Pro_Attr" />
+                <asp:BoundField DataField="Pos_Attr" HeaderText="[正方]狀態" SortExpression="Pos_Attr" />
+                <asp:BoundField DataField="Neg_Feat" HeaderText="[反方]特徵描述" SortExpression="Neg_Feat" />
+                <asp:BoundField DataField="Pro_Feat" HeaderText="[過程]特徵描述" SortExpression="Pro_Feat" />
+                <asp:BoundField DataField="Pos_Feat" HeaderText="[正方]特徵描述" SortExpression="Pos_Feat" />
+            </Columns>
+            <FooterStyle BackColor="#CCCCCC" />
+            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+            <SortedAscendingHeaderStyle BackColor="#808080" />
+            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+            <SortedDescendingHeaderStyle BackColor="#383838" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" SelectCommand="SELECT [Id], [Article_id], [Neg_Attr], [Pro_Attr], [Pos_Attr], [Neg_Feat], [Pro_Feat], [Pos_Feat] FROM [Writing_PN_MAP] WHERE ([Article_id] = @Article_id)" DeleteCommand="DELETE FROM [Writing_PN_MAP] WHERE [Id] = @Id" InsertCommand="INSERT INTO [Writing_PN_MAP] ([Article_id], [Neg_Attr], [Pro_Attr], [Pos_Attr], [Neg_Feat], [Pro_Feat], [Pos_Feat]) VALUES (@Article_id, @Neg_Attr, @Pro_Attr, @Pos_Attr, @Neg_Feat, @Pro_Feat, @Pos_Feat)" UpdateCommand="UPDATE [Writing_PN_MAP] SET [Article_id] = @Article_id, [Neg_Attr] = @Neg_Attr, [Pro_Attr] = @Pro_Attr, [Pos_Attr] = @Pos_Attr, [Neg_Feat] = @Neg_Feat, [Pro_Feat] = @Pro_Feat, [Pos_Feat] = @Pos_Feat WHERE [Id] = @Id">
+            <DeleteParameters>
+                <asp:Parameter Name="Id" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="Article_id" Type="Int32" />
+                <asp:Parameter Name="Neg_Attr" Type="String" />
+                <asp:Parameter Name="Pro_Attr" Type="String" />
+                <asp:Parameter Name="Pos_Attr" Type="String" />
+                <asp:Parameter Name="Neg_Feat" Type="String" />
+                <asp:Parameter Name="Pro_Feat" Type="String" />
+                <asp:Parameter Name="Pos_Feat" Type="String" />
+            </InsertParameters>
+            <SelectParameters>
+                <asp:QueryStringParameter Name="Article_id" QueryStringField="Article_id" Type="Int32" />
+            </SelectParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="Article_id" Type="Int32" />
+                <asp:Parameter Name="Neg_Attr" Type="String" />
+                <asp:Parameter Name="Pro_Attr" Type="String" />
+                <asp:Parameter Name="Pos_Attr" Type="String" />
+                <asp:Parameter Name="Neg_Feat" Type="String" />
+                <asp:Parameter Name="Pro_Feat" Type="String" />
+                <asp:Parameter Name="Pos_Feat" Type="String" />
+                <asp:Parameter Name="Id" Type="Int32" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+    
+    </div>
+        <asp:Button ID="Button1" runat="server" OnClick="backtoArticleList" Text="返回文章列表" />
+    </asp:Content>

@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Single_Writing
+{
+    public partial class create_PNMAPDetail : System.Web.UI.Page
+    {
+        string Articleid;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+           Articleid=Request.QueryString["Article_id"];
+           // Response.Write(Article_id);
+        }
+
+        protected void backtoArticleList(object sender, EventArgs e)
+        {
+            List<string> checkforTitle;
+            checkforTitle=DBMSSQL.getSingleData("SELECT [Title_id] FROM [Writing_Main] WHERE Article_id=('"+Articleid+"')");
+            //Response.Write(checkforTitle[0]);
+            Response.Redirect("./create_articleList.aspx?Id=" + checkforTitle[0]);
+        }
+
+        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+           
+            if (e.Row.RowType == DataControlRowType.DataRow || e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[1].Visible = false;//隱藏gridview裡面PrimaryKey,[欄位0-n]
+
+            }
+        
+        }
+
+        protected void Add_PNmap(object sender, EventArgs e)
+        {
+            Response.Redirect("./edit_PNmap.aspx?Article_id="+Articleid);
+        }
+    }
+}

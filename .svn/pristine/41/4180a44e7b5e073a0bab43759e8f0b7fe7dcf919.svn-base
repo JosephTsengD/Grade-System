@@ -1,0 +1,66 @@
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+using System;
+
+namespace Writting.Corpus
+{
+    public static class CorpusFunction
+    {
+        static List<List<string>>  keywordList = DBMSSQL.getDataCollection("SELECT [Id], [Keyword] FROM Corpus_Keyword ");
+        static List<List<string>> AttributeList = DBMSSQL.getDataCollection("SELECT [Id], [Attribute] FROM Corpus_Attribute ");
+
+        public static int checkForKeyword(string keyword)
+        {
+            bool boolInsert = true;
+            string cmd;
+
+            if (keywordList != null)
+            {
+                foreach (List<string> item in keywordList)
+                {
+                    if (keyword == item[1])
+                    {
+                        boolInsert = false;
+                        return System.Convert.ToInt32(item[0]);
+                    }
+                }
+                if (boolInsert)
+                {
+                    cmd = "INSERT INTO Corpus_Keyword ([Keyword]) VALUES ('" + keyword + "')";
+                    DBMSSQL.Update(cmd);
+                }
+            }
+            List<String> returnKeyID = DBMSSQL.getSingleData("SELECT Id FROM Corpus_Keyword WHERE Keyword = '" + keyword + "'");
+            return System.Convert.ToInt32(returnKeyID[0]);
+        }
+
+        // check for attribute
+        public static int checkForAttribute(string attri)
+        {
+            string cmd;
+            bool boolInsert = true;
+            if (AttributeList != null)
+            {
+                foreach (List<string> item in AttributeList)
+                {
+                    if (attri == item[1])
+                    {
+                        boolInsert = false;
+                        return System.Convert.ToInt32(item[0]);
+                    }
+                }
+                if (boolInsert)
+                {
+                    cmd = "INSERT INTO Corpus_Attribute ([Attribute]) VALUES ('" + attri + "')";
+                    DBMSSQL.Update(cmd);
+                }
+            }
+            List<String> returnAttrID = DBMSSQL.getSingleData("SELECT Id FROM Corpus_Attribute WHERE Attribute = '" + attri + "'");
+
+            return System.Convert.ToInt32(returnAttrID[0]);
+        }
+
+
+    }
+}

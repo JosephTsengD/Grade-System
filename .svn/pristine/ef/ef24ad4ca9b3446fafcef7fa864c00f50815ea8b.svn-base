@@ -1,0 +1,69 @@
+﻿//------------------------------------------------------------------------------
+// <自動產生的>
+//     這段程式碼是由工具產生的。
+//
+//     對這個檔案所做的變更可能會造成錯誤的行為，而且如果重新產生程式碼，
+//     所做的變更將會遺失。 
+// </自動產生的>
+//------------------------------------------------------------------------------
+
+namespace Writting.Collaborative {
+    
+    
+    public partial class Post {
+        
+        /// <summary>
+        /// subject_label 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 將移動欄位宣告從設計檔案修改為程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label subject_label;
+        
+        /// <summary>
+        /// Subject_text 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 將移動欄位宣告從設計檔案修改為程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Subject_text;
+        
+        /// <summary>
+        /// ck 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 將移動欄位宣告從設計檔案修改為程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ck;
+        
+        /// <summary>
+        /// editorLabel 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 將移動欄位宣告從設計檔案修改為程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label editorLabel;
+        
+        /// <summary>
+        /// Author_text 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 將移動欄位宣告從設計檔案修改為程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Author_text;
+        
+        /// <summary>
+        /// Post_button 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 將移動欄位宣告從設計檔案修改為程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Post_button;
+    }
+}

@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Single_Writing
+{
+    public partial class edit_PNmap : System.Web.UI.Page
+    {
+        string article_id;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            article_id = Request.QueryString["Article_id"];
+        }
+
+        protected void editPNmap(object sender, EventArgs e)
+        {
+            string negattr = Neg_Attr.Text.ToString();
+            string proattr = Pro_Attr.Text.ToString();
+            string posattr = Pos_Attr.Text.ToString();
+            string negfeat = Neg_Feat.Text.ToString();
+            string profeat = Pro_Feat.Text.ToString();
+            string posfeat = Pos_Feat.Text.ToString();
+
+            string cmdforInsertPNmap;
+
+            //Session["articleid"] = article_id;
+            
+            cmdforInsertPNmap = "INSERT INTO Writing_PN_MAP ([Article_id],[Neg_Attr],[Pro_Attr],[Pos_Attr],[Neg_Feat],[Pro_Feat],[Pos_Feat]) VALUES ('"+article_id+"','"+negattr+"','"+proattr+"','"+posattr+"','"+negfeat+"','"+profeat+"','"+posfeat+"')";
+            DBMSSQL.Update(cmdforInsertPNmap);
+            Response.Redirect("./scan_PNmapDetail.aspx?Article_id="+article_id);
+
+        }
+
+      
+
+        
+    }
+}

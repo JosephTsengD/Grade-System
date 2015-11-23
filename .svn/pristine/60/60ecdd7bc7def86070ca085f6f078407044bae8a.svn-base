@@ -1,0 +1,127 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Corpus
+{
+    public partial class DetailEdit : System.Web.UI.Page
+    {
+        string corpusId;
+        string corpusType;
+        List<List<string>> datacollation;
+        List<string> singledate;
+        int temp = 1;
+        string cmd;
+
+        TextBox textTB = new TextBox();
+        TextBox explanTB = new TextBox();
+        //TextBox authorTB = new TextBox();
+        //TextBox titleTB = new TextBox();
+        TextBox keywordTB = new TextBox();
+        TextBox attributeTB = new TextBox();
+
+        Label textLb = new Label();
+        Label explanLb = new Label();
+        //Label authorLb = new Label();
+        //Label titleLb = new Label();
+        Label keywordLb = new Label();
+        Label attributeLb = new Label();
+
+        string keyword;
+        string attribute;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            corpusId = Request.QueryString["Id"];
+            corpusType = Request.QueryString["Type"];
+            if (corpusId != null)
+            {
+
+                TextBoxInit();
+                GetEditData();
+                OriDataInit();
+            }
+
+        }
+
+        //undo:多個關鍵字處理
+        protected void GetEditData()
+        {
+            string cmd = "SELECT A1.Id, A1.Text, A1.Explanation, A5.Keyword, A4.Attribute FROM Corpus_Idiom AS A1 INNER JOIN Corpus_IdiomKey AS A3 ON A1.Id = A3.CorpusId AND A1.Id = A3.CorpusId INNER JOIN Corpus_IdiomAttri AS A2 ON A1.Id = A2.CorpusId INNER JOIN Corpus_Keyword AS A5 ON A3.KeywordId = A5.Id INNER JOIN Corpus_Attribute AS A4 ON A2.AttributeId = A4.Id WHERE (A1.Id = '" +corpusId + "')";
+            datacollation = DBMSSQL.getDataCollection(cmd);
+
+        }
+
+        //undo:多個關鍵字處理
+        protected void OriDataInit()
+        {
+            textTB.Text = datacollation[0][1];
+            explanTB.Text = datacollation[0][2];
+            keywordTB.Text = keyword = datacollation[0][3];
+            attributeTB.Text = attribute = datacollation[0][4];
+        }
+
+        //undo:多個關鍵字處理
+        protected void TextBoxInit()
+        {
+            
+            textLb.Text = "語料內容：";
+            explanLb.Text = "解釋：";
+            //authorLb.Text = "作者出處：";
+            //titleLb.Text = "標題：";
+            keywordLb.Text = "關鍵字：";
+            attributeLb.Text = "狀態：";
+
+            textHolder.Controls.Add(textLb);
+            textHolder.Controls.Add(textTB);
+
+            explanTB.TextMode = TextBoxMode.MultiLine;
+            explanTB.Width = 300;
+            explanTB.Height = 200;
+
+            explanationHolder.Controls.Add(explanLb);
+            explanationHolder.Controls.Add(new LiteralControl("<br/>"));
+            explanationHolder.Controls.Add(explanTB);
+
+            keywordHolder.Controls.Add(keywordLb);
+            keywordHolder.Controls.Add(keywordTB);
+
+            attributeHolder.Controls.Add(attributeLb);
+            attributeHolder.Controls.Add(attributeTB);
+
+        }
+
+        protected void UpdataCorpus(Object sender, EventArgs e)
+        {
+            //corpus_Idiom
+            cmd = "UPDATE Corpus_Idiom SET Text ='" + textTB.Text + "',Explanation ='" + explanTB.Text + "' WHERE Id ='" + corpusId + "'";
+            DBMSSQL.Update(cmd);
+
+            //keyword and attribute
+            if (keyword != keywordTB.Text)
+            {
+                int keyId = CorpusFunction.checkForKeyword(keywordTB.Text);
+                cmd = "UPDATE Corpus_IdiomKey SET KeywordId = '" + keyId + "' WHERE CorpusId ='" + corpusId + "'";
+                DBMSSQL.Update(cmd);
+            }
+            if (attribute != attributeTB.Text)
+            {
+                int attributId = CorpusFunction.checkForAttribute(attributeTB.Text);
+                cmd = "UPDATE Corpus_IdiomAttri SET AttributeId = '" + attributId + "' WHERE CorpusId='" + corpusId + "'";
+                DBMSSQL.Update(cmd);
+            }
+            Response.Redirect("~/Corpus/IdiomDetail.aspx?Id=" + corpusId);
+        }
+
+        protected void Cancel(Object sender, EventArgs e)
+        {
+            Response.Redirect("~/Corpus/IdiomDetail.aspx?Id=" + corpusId);
+        }
+
+
+
+    }
+}

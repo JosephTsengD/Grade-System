@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Single_Writing
+{
+    public partial class scan_Paragraph : System.Web.UI.Page
+    {
+        string articleid;
+        List<string> titleid;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            articleid = Request.QueryString["Article_id"];
+            titleid = DBMSSQL.getSingleData("SELECT [Title_id] FROM [Writing_Main] WHERE Article_id=('"+articleid+"')");
+        }
+
+        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+ if (e.Row.RowType == DataControlRowType.DataRow || e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[2].Visible = false;//隱藏gridview裡面PrimaryKey,[欄位0-n]
+
+            }
+        }
+
+        protected void edit_Paragraph(object sender, EventArgs e)
+        {
+            Response.Redirect("./edit_Paragraph.aspx?Article_id=" + articleid);
+        }
+
+        protected void backtoArticleList(object sender, EventArgs e)
+        {
+           // Response.Write(titleid[0]);
+            Response.Redirect("./create_articleList.aspx?Id=" + titleid[0]);
+        }
+        
+    }
+}

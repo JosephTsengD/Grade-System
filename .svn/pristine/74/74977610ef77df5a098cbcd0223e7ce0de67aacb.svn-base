@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Single_Writing
+{
+    public partial class create_articleList : System.Web.UI.Page
+    {
+        static string id;
+        List<string> title;
+        
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            
+            id = Request.QueryString["id"];
+            if (id != null)
+            {
+                Session["titleid"] = id;//建立session傳遞Title_id
+                title = DBMSSQL.getSingleData("SELECT [Title] FROM [Writing_Title] WHERE Id = ('" + id + "')  ");
+                Response.Write(title[0]);
+            }
+            else 
+            { 
+            }
+            
+        }
+
+       
+
+        protected void TocreateArticle(object sender, EventArgs e)
+        {
+            Response.Redirect("./edit_Article.aspx");
+        }
+
+        protected void backtoIndex(object sender, EventArgs e)
+        {
+            Response.Redirect("./create_index.aspx");
+        }
+
+        protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow || e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[1].Visible = false;//隱藏gridview裡面PrimaryKey,[欄位0-n]
+
+            }
+        }
+
+       
+    }
+}

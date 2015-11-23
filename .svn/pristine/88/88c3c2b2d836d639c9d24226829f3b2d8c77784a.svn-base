@@ -1,0 +1,38 @@
+﻿using System.Data;
+using System.Collections.Generic;
+/// <summary>
+/// 存入資料庫所需欄位及對應值組成的資料結構
+/// </summary>
+namespace Writting
+{
+    public abstract class DBDataFieldBase
+    {
+        public string field { get; set; }//欄位
+        public string value { get; set; }//值
+        public SqlDbType sqlDbType { get; set; }
+        public int size { get; set; }
+    }
+    public class DBDataField<T> : DBDataFieldBase
+    {
+        public new T value { get; set; }//值
+    }
+    public class DBDataRow
+    {
+        private List<DBDataFieldBase> DataRow = new List<DBDataFieldBase>();
+        public void setDBDataField<T>(string field, T value, SqlDbType sqlDbType, int size)
+        {
+
+            DBDataField<T> data = new DBDataField<T>();
+            data.field = field;
+            data.value = value;
+            data.sqlDbType = sqlDbType;
+            data.size = size;
+            DataRow.Add(data);
+        }
+        public dynamic get()
+        {
+            return DataRow;
+        }
+
+    }
+}

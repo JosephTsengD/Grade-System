@@ -1,0 +1,66 @@
+/** *************************************************************************
+class GradeSystems儲存 a list of student grades.
+
+containsID(ID)  //看aGradeSystem有否含此ID
+GradeSystems () //建構子
+showGrade(ID)
+showRank(ID)
+updateWeights ()
+*************************************************************************** */
+
+
+
+public class GradeSystems {
+
+
+	float weights[5];//  (初始值 lab1 0.1, lab2 0.1, lab3 0.1, midTerm 0.3, finalExam 0.4)(注意weights 之和須等於1.0)
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	
+	public void GradeSystems () //建構子
+	{
+		/**
+	1. 開檔 input file 
+	2. 用Java LinkedList建構an empty list of grades叫 aList
+	3. read line
+	4. while not endOfFile
+	1.call Grades() 建構aGrade
+	2.用 Java Scanner 來 scan line 把各欄位存入aGrade
+	3. aGrade.calculateTotalGrade(weights) 回傳aTotalGrade把它存入aGrade
+	4. 把 aGrade 存入 aList
+	5. if endOfLine then read line end if
+	     end while
+**/
+	   public void showGrade(int ID) {
+		   //show 這 ID 的 grade 
+		   }
+
+	 public int showRank(int ID){
+	   /**
+	1. 取得這 ID 的 theTotalGrade
+	2. 令rank 為 1 
+	3. loop aGrade in aList if aTotalGrade > theTotalGrade then rank加1(退1名) end loop
+	4. 回傳 rank
+	   **/
+	 }
+	public void updateWeights (){
+	  /**
+	      1. showOldWeights() 
+	2. getNewWeights() 
+	3. setWeights(weights)
+	      4. loop aGrade in aList to calculateTotalGrade(weights) end loop
+	      **/
+	}
+	public void containsID(int ID) //看 ID 是否含在 aGradeSystem內
+	{
+		
+	}
+	}
+
+
+}

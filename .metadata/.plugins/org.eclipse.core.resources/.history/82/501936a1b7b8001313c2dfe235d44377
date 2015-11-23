@@ -1,0 +1,102 @@
+
+/** ***********************************************************************
+class UI (user interface) 
+
+checkID(ID)
+promptCommand()
+promptID()
+showFinishMsg()
+showWelcomeMsg()
+UI() 建構子 建構 aGradeSystem
+************************************************************************ */
+import java.util.Scanner;
+public class UI{
+	
+	public GradeSystems aGradeSystem;
+	public String ID;
+	public String name;
+/** ----------------------------------------------------------------------------------------------------------
+UI() 建構子 throws NoSuchIDExceptions, NoSuchCommandExceptions
+-------------------------------------------------------------------------------------------------------------- */
+
+	public UI() throws NoSuchIDExceptions, NoSuchCommandExceptions
+	{
+		try{ 
+			
+
+			/**
+			1.call GradeSystems() to建構 aGradeSystem
+
+			2.loop1 until Q (Quit)
+			1.	promptID() to get user ID  輸入ID或 Q (結束使用)？ 
+			2.	checkID (ID) 看 ID 是否在 aGradeSystem內
+			3.	showWelcomeMsg (ID)      ex. Welcome李威廷
+			4.	loop2 until E (Exit)
+			promptCommand() to prompt for inputCommand 
+			    end loop2
+			end loop1
+			3.showFinishMsg()           結束了
+			**/
+			}
+		finally{}
+		
+		
+		aGradeSystem = new GradeSystems();
+
+		String IDorQ = "";
+		while(!IDorQ.equals("Q"))
+		{
+			IDorQ = promptID();
+			if(IDorQ.equals("Q"))
+				break;
+
+			if(checkID(IDorQ))
+			{
+				ID = IDorQ;
+
+				showWelcomeMsg();
+
+				while(!promptCommand().equals("E"))
+					;
+			}
+		}
+
+		showFinishMsg();
+		
+	
+		
+	}
+
+
+
+
+/**-------------------------------------------------------------------------------------------------------------
+checkID (ID) throws NoSuchIDExceptions return Boolean
+parameter: ID   a user ID  ex: 123456789
+time:     O(n)  n is  aGradeSystem 內全班人數
+-----------------------------------------------------------------------------------------------------------------*/
+/**
+1.	要aGradeSystem 做containsID(ID) 看 ID 是否含在 aGradeSystem內 
+2.	if not, throw an object of NoSuchIDExceptions
+3.	回傳 true
+**/
+
+/**-------------------------------------------------------------------------------------------------------------
+promptCommand () throws NoSuchCommandExceptions
+-----------------------------------------------------------------------------------------------------------------*/
+/**
+1. prompt user for inputCommand
+2. if inputCommand is not G (Grade),R (Rank), W (Weights), or E (Exit),
+ throws an object of NoSuchCommandException
+3. if inputCommand is E (Exit) then break else: G aGradeSystem.showGrade(ID), R showRank(ID), W updateWeights() end if
+
+**/
+public String promptID() { return"a";}
+public String promptCommand() throws NoSuchCommandExceptions{ 
+	
+	return "a";}
+public boolean checkID(String ID)throws NoSuchIDExceptions{ return true;}
+public void showFinishMsg(){}
+public void showWelcomeMsg(){}
+}
+

@@ -1,0 +1,25 @@
+/** **********************************************************************
+class Grades 儲存 ID, name, lab1, lab2, lab3, midTerm, finalExam, and totalGrade
+
+calculateTotalGrade(weights)
+Grades () { } //建構子
+************************************************************************/
+
+
+public class Grades {
+
+	String name, ID; int lab1, lab2, lab3, midTerm, finalExam, totalGrade;
+	//(注意 input file內無 totalGrade )
+
+	
+	public Grades () { } //建構子
+	public calculateTotalGrade(weights) {
+		//totalGrade須四捨五入
+		}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

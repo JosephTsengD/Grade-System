@@ -1,0 +1,47 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Single_Edit_Index.aspx.cs" Inherits="Writting.Single_Writing.Single_Edit" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        後端編輯系統<p>
+            <asp:HyperLink ID="HyperLink1" runat="server">文章列表</asp:HyperLink>
+        </p>
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Id" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None">
+            <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <asp:BoundField DataField="Id" HeaderText="題目編號" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                <asp:BoundField DataField="Title" HeaderText="題目" SortExpression="Title" />
+                <asp:HyperLinkField DataNavigateUrlFields="id" DataTextField="id" HeaderText="進入題庫" />
+            </Columns>
+            <EditRowStyle BackColor="#7C6F57" />
+            <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#E3EAEB" />
+            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+            <SortedAscendingHeaderStyle BackColor="#246B61" />
+            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+            <SortedDescendingHeaderStyle BackColor="#15524A" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" DeleteCommand="DELETE FROM [Writing_Title] WHERE [Id] = @Id" InsertCommand="INSERT INTO [Writing_Title] ([Title]) VALUES (@Title)" SelectCommand="SELECT * FROM [Writing_Title]" UpdateCommand="UPDATE [Writing_Title] SET [Title] = @Title WHERE [Id] = @Id">
+            <DeleteParameters>
+                <asp:Parameter Name="Id" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="Title" Type="String" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="Title" Type="String" />
+                <asp:Parameter Name="Id" Type="Int32" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+    </form>
+</body>
+</html>

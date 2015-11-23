@@ -1,0 +1,175 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" MasterPageFile="~/Corpus/Corpus.Master" Inherits="Writting.Corpus.Index"%>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
+            <asp:View id="Idiom_View" runat="Server">   
+                     <table width="95%" id="table1" cellspacing="1" cellpadding="1">
+                        <tr>
+                            <td width="25%" >
+                                       <b>成語
+                                       </b></td>
+                            <td width="25%" >                   
+                                        <asp:LinkButton id="Idiom_QuoteLink"
+                                            Text="名句"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Quote_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                            </td>
+                            <td width="25%">
+                                        <asp:LinkButton id="Idiom_PoetryLink"
+                                            Text="詩詞"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Poetry_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                              </td>
+                            <td width="25%" >
+                                        <asp:LinkButton id="Idiom_AllusionLink"
+                                            Text="典故古文"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Allusion_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                              </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" >  
+                                <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="IdiomSqlDataSource" Width="100%">
+                                    <Columns>
+                                        <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" Visible="False" />
+                                        <asp:BoundField DataField="Text" HeaderText="成語內容" SortExpression="Text" />
+                                        <asp:BoundField DataField="Explanation" HeaderText="解釋" SortExpression="Explanation" />
+                                        <asp:BoundField DataField="Keyword" HeaderText="關鍵字" SortExpression="Keyword" />
+                                        <asp:BoundField DataField="Attribute" HeaderText="狀態" SortExpression="Attribute" />
+                                        <asp:HyperLinkField DataNavigateUrlFields="Id" DataNavigateUrlFormatString="IdiomDetail.aspx?Id={0}" HeaderText="詳細" Text="詳細內容" />
+                                    </Columns>
+                                </asp:GridView>
+                                <asp:SqlDataSource ID="IdiomSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" SelectCommand="SELECT A1.Id, A1.Text, A1.Explanation, A5.Keyword, A4.Attribute FROM Corpus_Idiom AS A1 INNER JOIN Corpus_IdiomKey AS A3 ON A1.Id = A3.CorpusId AND A1.Id = A3.CorpusId INNER JOIN Corpus_IdiomAttri AS A2 ON A1.Id = A2.CorpusId INNER JOIN Corpus_Keyword AS A5 ON A3.KeywordId = A5.Id INNER JOIN Corpus_Attribute AS A4 ON A2.AttributeId = A4.Id"></asp:SqlDataSource>
+                  <br />
+                            </td>
+                        </tr>
+                    </table>
+            </asp:View>
+            <asp:View id="Quote_View" runat="Server">   
+                     <table width="95%" id="table2" cellspacing="1" cellpadding="1">
+                        <tr>
+                            <td width="25%" >
+                                        <asp:LinkButton id="Quote_IdiomLink"
+                                            Text="成語"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Idiom_View"
+                                            runat="Server">
+                                        </asp:LinkButton>                            
+                            </td>
+                            <td width="25%">                   
+                                        <b>名句</b>
+                            </td>
+                            <td width="25%">
+                                        <asp:LinkButton id="Quote_PoetryLink"
+                                            Text="詩詞"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Poetry_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                              </td>
+                            <td width="25%">
+                                        <asp:LinkButton id="Quote_AllusionLink"
+                                            Text="典故古文"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Allusion_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                              </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">     
+                                        &nbsp;</td>
+                        </tr>
+                    </table>
+            </asp:View>
+            <asp:View id="Poetry_View" runat="Server">   
+                     <table width="95%" id="table3" cellspacing="1" cellpadding="1">
+                        <tr>
+                            <td width="25%" >
+                                        <asp:LinkButton id="Poetry_IdiomLink"
+                                            Text="成語"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Idiom_View"
+                                            runat="Server">
+                                        </asp:LinkButton>                            
+                            </td>
+                            <td width="25%">
+                                        <asp:LinkButton id="Poetry_QuoteLink"
+                                            Text="名句"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Quote_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                            </td>
+                            <td width="25%">
+                                        <b>詩詞</b>
+                              </td>
+                            <td width="25%">
+                                        <asp:LinkButton id="Poetry_AllusionLink"
+                                            Text="典故古文"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Allusion_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">     
+                                        <br />
+                                        請把您的內容，寫在這裡......
+                                        <br />
+                            </td>
+                        </tr>
+                    </table>
+            </asp:View>
+        <asp:View id="Allusion_View" runat="Server">   
+                     <table width="95%" id="table4" cellspacing="1" cellpadding="1">
+                        <tr>
+                            <td width="25%" >
+                                        <asp:LinkButton id="Allusion_IdiomLink"
+                                            Text="成語"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Idiom_View"
+                                            runat="Server">
+                                        </asp:LinkButton>                            
+                            </td>
+                            <td width="25%">
+                                        <asp:LinkButton id="Allusion_QuoteLink"
+                                            Text="名句"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Quote_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                            </td>
+                            <td width="25%">
+                                        <asp:LinkButton id="Allusion_PoetryLink"
+                                            Text="詩詞"
+                                            CommandName="SwitchViewByID"
+                                            CommandArgument="Poetry_View"
+                                            runat="Server">
+                                        </asp:LinkButton>
+                            </td>
+                            <td width="25%">
+                                        <b>典故古文</b>
+                              </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" >     
+                                        <br />
+                                        請把您的內容，寫在這裡......
+                                        <br />
+                            </td>
+                        </tr>
+                    </table>
+            </asp:View>
+        </asp:MultiView>
+    <br />
+</asp:Content>

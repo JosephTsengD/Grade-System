@@ -1,0 +1,24 @@
+/** *************************************************************************
+class GradeSystems儲存 a list of student grades.
+
+containsID(ID)  //看aGradeSystem有否含此ID
+GradeSystems () //建構子
+showGrade(ID)
+showRank(ID)
+updateWeights ()
+*************************************************************************** */
+
+
+
+public class GradeSystems {
+
+
+	float[5] weights;//  (初始值 lab1 0.1, lab2 0.1, lab3 0.1, midTerm 0.3, finalExam 0.4)(注意weights 之和須等於1.0)
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

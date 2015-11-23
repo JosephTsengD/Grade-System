@@ -1,0 +1,122 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeBehind="Create.aspx.cs"  MasterPageFile="~/Corpus/Corpus.Master" Inherits="Writting.Corpus.CreateCorpus" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div>
+        &nbsp;<asp:DropDownList ID="type" runat="server" >
+            <asp:ListItem Selected="True" Value="0">選擇語料類型</asp:ListItem>
+            <asp:ListItem Value="成語">成語</asp:ListItem>
+            <asp:ListItem Value="名句">名句</asp:ListItem>
+            <asp:ListItem Value="詩詞">詩詞</asp:ListItem>
+            <asp:ListItem Value="典故古文">典故古文</asp:ListItem>
+        </asp:DropDownList>
+    </div>
+    <div id="allusion">
+        <div id="Div1">
+            <asp:Label ID="Label7" runat="server" Text="文字："></asp:Label>
+            <asp:TextBox ID="text_AlluTB" runat="server"></asp:TextBox>
+        </div>
+        <div id ="Div2">
+            <asp:Label ID="Label8" runat="server" Text="作者："></asp:Label>
+            <asp:TextBox ID="author_AlluTB" runat="server" ></asp:TextBox>
+        </div>
+        <div id="Div3">
+            <asp:Label ID="Label9" runat="server" Text="題目："></asp:Label>
+            <asp:TextBox ID="title_AlluTB" runat="server" ></asp:TextBox>
+        </div>
+        <div id="Div4" draggable="auto">
+            <asp:Label ID="Label10" runat="server" Text="解釋："></asp:Label>
+            <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox id="explanation_AlluTB" runat="server" Height="200px" TextMode="MultiLine" Width="288px" BorderStyle="Dotted"></asp:TextBox>
+        </div>
+    </div>
+    <div id="idiom">
+        <div id="Div7">
+            <asp:Label ID="Label13" runat="server" Text="文字："></asp:Label>
+            <asp:TextBox ID="text_IdiomTB" runat="server"></asp:TextBox>
+        </div>
+        <div id="Div10" draggable="auto">
+            <asp:Label ID="Label16" runat="server" Text="解釋："></asp:Label>
+            <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox id="explanation_IdiomTB" runat="server" Height="200px" TextMode="MultiLine" Width="288px" BorderStyle="Dotted"></asp:TextBox>
+        </div>
+    </div>
+    <div id="poetry">
+        <div id="Div8">
+            <asp:Label ID="Label14" runat="server" Text="文字："></asp:Label>
+            <asp:TextBox ID="text_PoetryTB" runat="server"></asp:TextBox>
+        </div>
+        <div id ="Div9">
+            <asp:Label ID="Label15" runat="server" Text="作者："></asp:Label>
+            <asp:TextBox ID="author_PoetryTB" runat="server" ></asp:TextBox>
+        </div>
+        <div id="Div13">
+            <asp:Label ID="Label19" runat="server" Text="題目："></asp:Label>
+            <asp:TextBox ID="title_PoetryTB" runat="server" ></asp:TextBox>
+        </div>
+        <div id="Div14" draggable="auto">
+            <asp:Label ID="Label20" runat="server" Text="解釋："></asp:Label>
+            <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox id="explanation_PoetryTB" runat="server" Height="200px" TextMode="MultiLine" Width="288px" BorderStyle="Dotted"></asp:TextBox>
+        </div>
+    </div>
+    <div id="quote">
+        <div id="Div17">
+            <asp:Label ID="Label23" runat="server" Text="文字："></asp:Label>
+            <asp:TextBox ID="text_QuoteTB" runat="server"></asp:TextBox>
+        </div>
+        <div id ="Div18">
+            <asp:Label ID="Label24" runat="server" Text="作者："></asp:Label>
+            <asp:TextBox ID="author_QuoteTB" runat="server" ></asp:TextBox>
+        </div>
+    </div>
+        <div id="Div21">
+            <asp:Label ID="Label27" runat="server" Text="關鍵字："></asp:Label>
+            <asp:TextBox ID="keywordTB" runat="server" Width="100px"></asp:TextBox>
+        </div>
+        <div id="Div22">
+            <asp:Label ID="Label28" runat="server" Text="狀態："></asp:Label>
+            <asp:TextBox ID="attributeTB" runat="server"></asp:TextBox>
+        </div>
+    <div>
+        <asp:Button ID="create" runat="server" Text="輸入" OnClick="createNewCorpus"/>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="../Scripts/jquery-1.8.2.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#allusion").hide()
+                $("#idiom").hide()
+                $('#poetry').hide()
+                $('#quote').hide()
+                $("#ContentPlaceHolder1_type").change(function () {
+                    if ($(this).val() == "名句") {
+                        $("#quote").show()
+                        $("#allusion").hide()
+                        $("#idiom").hide()
+                        $('#poetry').hide()
+                    }
+                    else if ($(this).val() == "成語") {
+                        $("#idiom").show()
+                        $("#allusion").hide()
+                        $("#quote").hide()
+                        $('#poetry').hide()
+                    }
+                    else if ($(this).val() == "詩詞") {
+                        $("#poetry").show()
+                        $("#allusion").hide()
+                        $("#quote").hide()
+                        $('#idiom').hide()
+                    }
+                    else if ($(this).val() == "典故古文") {
+                        $("#allusion").show()
+                        $("#idiom").hide()
+                        $("#quote").hide()
+                        $('#poetry').hide()
+                    }
+                })
+            });
+        </script>
+    </asp:Content>
+

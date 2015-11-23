@@ -1,0 +1,53 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Collaborative/Forum.Master" AutoEventWireup="true" CodeBehind="ForumMain.aspx.cs" Inherits="Writting.Collaborative.ForumMain" %>
+<asp:Content runat="server" ContentPlaceHolderID="FeaturedContent">
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup>
+                <h1><a href="ForumMain.aspx">討論區</a></h1>
+            </hgroup>            
+        </div>
+    </section>    
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="MainContent">
+    <style type="text/css">
+        .GridViewStyle 
+        {
+            font-family:Arial,sans-serif;
+            font-size:14px;
+            table-layout:auto;
+            border-collapse:collapse;
+            margin:0px auto;
+            width:90%;
+        }
+        #GridView1 
+        {
+            width:75%;
+            margin-right:auto;
+            margin-left:auto;
+            position:relative;
+            bottom:30px;
+            margin-top:30px;
+        }
+        #RowStyle 
+        {
+            background-color:#d5d0ca;
+            color:#927350
+        }
+    </style>
+        <asp:Button ID="postButton" runat="server" Text="發表文章" OnClick="postButton_Click" style="table-layout:auto; margin-left:0px auto" />    
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id" DataSourceID="SqlDataSource1" CssClass="GridViewStyle">
+            <Columns>
+                <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="~/Collaborative/ForumDisp.aspx?id={0}" DataTextField="async_subject" HeaderText="標題" NavigateUrl="~/Collaborative/ForumDisp.aspx?id={0}" />
+                <asp:BoundField DataField="num_reply" HeaderText="回覆" SortExpression="num_reply">
+                    <ControlStyle Width="100px" />
+                    <HeaderStyle Width="100px" />
+                    <ItemStyle Font-Size="12px" Width="100px" />
+                </asp:Boundfield>
+                <asp:BoundField DataField="async_author" HeaderText="作者" SortExpression="async_author" />
+                <asp:BoundField DataField="async_time" HeaderText="發佈時間" SortExpression="async_time" />            
+            </Columns>
+        </asp:GridView>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" SelectCommand="SELECT * FROM [Collaborative_AsyncIndex] ORDER BY [async_time] DESC"></asp:SqlDataSource>
+
+    
+</asp:Content>

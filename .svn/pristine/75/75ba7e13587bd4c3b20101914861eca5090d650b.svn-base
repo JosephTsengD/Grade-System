@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Single_Writing
+{
+    public partial class edit_Article : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void createArticle(object sender, EventArgs e)
+        {
+            string extendedmean = Extended_Mean.Text.ToString();
+            string keynote = Keynote.Text.ToString();
+
+            string title_id = Session["titleid"].ToString();
+
+
+            string cmdforArticle = "INSERT INTO Writing_Main ([Title_id],[Extended_Mean],[Keynote]) VALUES ('" + title_id + "','" + extendedmean + "','" + keynote + "')";
+            DBMSSQL.Update(cmdforArticle);
+            Response.Redirect(".//create_articleList.aspx?Id=" + title_id);
+            //Response.Write(title_id);
+
+
+        }
+
+        
+    }
+}

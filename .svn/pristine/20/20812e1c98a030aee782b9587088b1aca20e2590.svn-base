@@ -1,0 +1,17 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="edit_Paragraph.aspx.cs" MasterPageFile="~/Single_Writing/Single.Master" Inherits="Writting.Single_Writing.edit_Paragraph" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="FeaturedContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+    <div>
+    
+        <asp:Label ID="Label1" runat="server" Text="請輸入文章"></asp:Label>
+    
+    </div>
+        <asp:TextBox ID="Paragraph_Input" runat="server" Height="16px" Width="447px"></asp:TextBox>
+        <asp:Button ID="Submit" runat="server" OnClick="Edit_Paragraph" Text="送出" />
+&nbsp;&nbsp;&nbsp;
+       </asp:Content>

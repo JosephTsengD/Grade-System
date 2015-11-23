@@ -1,0 +1,149 @@
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+using System;
+namespace Writting
+{
+    public static class DBMSSQL
+    {
+        private static string connectionString = "data source=140.115.158.216;Initial Catalog=writtingDB;user id=sa;password=gdchen;Integrated Security=false";
+        private static SqlConnection conn;
+        private static SqlCommand cmd;
+        private static SqlDataReader dr;
+
+        /*從資料庫取回commad條件式下的資料*/
+        public static List<List<string>> getDataCollection(string command)
+        {
+            List<List<string>> dataCollection = new List<List<string>>();
+            List<string> data;
+            using (conn = new SqlConnection(connectionString))
+            {
+                cmd = new SqlCommand(command, conn);
+                conn.Open();
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    data = new List<string>();
+                    for (int i = 0; i < dr.FieldCount; i++)
+                        data.Add(dr[i].ToString());
+                    dataCollection.Add(data);
+                }
+                cmd.Cancel();
+                dr.Close();
+                cmd.Dispose();
+                dr.Dispose();
+            }
+            return dataCollection;
+
+        }
+        /*從資料庫取回commad條件式下的資料*/
+        public static List<string> getSingleData(string command)
+        {
+
+            List<string> data;
+            using (conn = new SqlConnection(connectionString))
+            {
+                cmd = new SqlCommand(command, conn);
+                conn.Open();
+                dr = cmd.ExecuteReader();
+                data = new List<string>();
+                while (dr.Read())
+                {
+                    data = new List<string>();
+                    for (int i = 0; i < dr.FieldCount; i++)
+                        data.Add(dr[i].ToString());
+                }
+                cmd.Cancel();
+                dr.Close();
+                cmd.Dispose();
+                dr.Dispose();
+            }
+            return data;
+        }
+
+        public static void InsertIntoDB(string command, ref DBDataRow DBDataRow)
+        {
+            using (conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                cmd = new SqlCommand(command, conn);
+                foreach (var item in DBDataRow.get())
+                {
+                    if (item.size == -1)
+                        cmd.Parameters.Add(string.Format("{0}{1}", "@", item.field), item.sqlDbType);
+                    else
+                        cmd.Parameters.Add(string.Format("{0}{1}", "@", item.field), item.sqlDbType, item.size);
+                    cmd.Parameters[string.Format("{0}{1}", "@", item.field)].Value = item.value;
+                }
+                cmd.ExecuteNonQuery();
+                cmd.Cancel();
+                cmd.Dispose();
+            }
+        }
+        public static void Update(string command)
+        {
+            using (conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                cmd = new SqlCommand(command, conn);
+                cmd.ExecuteNonQuery();
+                cmd.Cancel();
+                cmd.Dispose();
+            }
+        }
+        public static void Delete(string command)
+        {
+
+            using (conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                cmd = new SqlCommand(command, conn);
+                cmd.ExecuteNonQuery();
+                cmd.Cancel();
+                cmd.Dispose();
+            }
+        }
+        //==========================================================================
+        public static int InsertIntoDB(string command, List<List<DBDatas>> data)
+        {
+            int ID = 0;
+            using (conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                foreach (List<DBDatas> item in data)
+                {
+                    cmd = new SqlCommand(command, conn);
+                    for (int i = 0; i < item.Count; i++)
+                    {
+                        if (item[i].size == -1)
+                            cmd.Parameters.Add(string.Format("{0}{1}", "@", item[i].field), item[i].sqlDbType);
+                        else
+                            cmd.Parameters.Add(string.Format("{0}{1}", "@", item[i].field), item[i].sqlDbType, item[i].size);
+                        cmd.Parameters[string.Format("{0}{1}", "@", item[i].field)].Value = item[i].value;
+                    }
+                    ID = System.Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Cancel();
+                }
+                cmd.Dispose();
+            }
+            return ID;
+        }
+        public static void InsertDataToList(List<DBDatas> List, string field, string value, SqlDbType sqlDbType, int size)
+        {
+            DBDatas data = new DBDatas();
+            data.field = field;
+            data.value = value;
+            data.sqlDbType = sqlDbType;
+            data.size = size;
+            List.Add(data);
+        }
+        //==================================================================================
+    }
+    public class DBDatas
+    {
+        public string field { get; set; }//欄位
+        public string value { get; set; }//值
+        public SqlDbType sqlDbType { get; set; }
+        public int size { get; set; }
+    }
+}

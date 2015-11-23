@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
+
+namespace Writting.Single_Writing
+{
+    public partial class edit_Paragraph : System.Web.UI.Page
+    {
+        int x = 0;
+        string articleid;
+        
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            articleid = Request.QueryString["Article_id"];
+            Response.Write(articleid);
+        }
+
+        protected void Edit_Paragraph(object sender, EventArgs e)
+        {
+            string content = Paragraph_Input.Text.ToString();
+            string[] str1 = Regex.Split(content, @"\s+");
+
+            string cmdforInserParagraph = "";
+            string paragraph = "";
+            
+            foreach (string i in str1)
+            {
+                paragraph = i.ToString();
+                Response.Write(i.ToString() + "[" + x + "]");
+                x++;
+                cmdforInserParagraph = "INSERT INTO Writing_Paragraph ([Article_id],[Para_Content],[Para_Order]) VALUES ('"+articleid+"','"+paragraph+"','"+x+"') ";
+                DBMSSQL.Update(cmdforInserParagraph);
+            }
+            Response.Redirect("./scan_Paragraph.aspx?Article_id=" + articleid);
+            
+            
+        }
+
+       
+    }
+}

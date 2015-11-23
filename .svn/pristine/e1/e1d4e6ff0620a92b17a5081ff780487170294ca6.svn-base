@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Data;
+
+namespace Writting.Corpus
+{
+    public partial class Detail : System.Web.UI.Page
+    {
+        int corpusId;
+        string cmd;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Delete_Click(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                corpusId = System.Convert.ToInt32(this.DetailsView.DataKey.Value);
+                cmd = "DELETE FROM Corpus_IdiomKey WHERE [CorpusId] = '" + corpusId + "'";
+                DBMSSQL.Delete(cmd);
+                cmd = "DELETE FROM Corpus_IdiomAttri WHERE [CorpusId] = '" + corpusId + "'";
+                DBMSSQL.Delete(cmd);
+                cmd = "DELETE FROM Corpus_Idiom WHERE [Id] ='" + corpusId + "'";
+                DBMSSQL.Delete(cmd);
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('語料已被刪除')", true);
+                Response.Redirect("~/Corpus/Index.aspx");
+            }
+            else
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('已取消刪除指令')", true);
+            }
+
+        }
+
+        protected void edit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("./IdiomEdit.aspx?Type=idiom&Id=" + System.Convert.ToInt32(this.DetailsView.DataKey.Value));
+        }
+
+
+
+
+    }
+}

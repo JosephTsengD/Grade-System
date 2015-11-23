@@ -1,0 +1,13 @@
+
+public class NoSuchIDExceptions {
+
+	/**
+	 * @param args
+	 */
+	public NoSuchIDExceptions(){}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

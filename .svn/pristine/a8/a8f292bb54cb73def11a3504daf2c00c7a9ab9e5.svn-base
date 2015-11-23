@@ -1,0 +1,153 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Writting;
+
+namespace Writting.Corpus
+{
+    //undo:多個關鍵字處理
+    public partial class CreateCorpus : System.Web.UI.Page
+    {
+        //for sql
+        private List<List<string>> dataCollection;
+        private List<string> singledata;
+        private string cmd = "";
+        private string keyword = "";
+        private string attribute = "";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+        
+
+        // 處理多對多關聯table
+        private void corpusDetail(int corpusID)
+        {
+            int keyId = CorpusFunction.checkForKeyword(this.keyword);
+            int attrId = CorpusFunction.checkForAttribute(this.attribute);
+            switch(type.Text.ToString())
+            {
+                case "成語":
+                    cmd = "INSERT INTO Corpus_IdiomKey ([CorpusId],[KeywordId]) VALUES ('" + corpusID + "','" + keyId + "')";
+                    DBMSSQL.Update(cmd);
+                    cmd = "INSERT INTO Corpus_IdiomAttri ([CorpusId],[AttributeId]) VALUES ('" + corpusID + "','" + attrId + "')";
+                    DBMSSQL.Update(cmd);
+                break;
+                case "詩詞":
+                    cmd = "INSERT INTO Corpus_PeotryKey ([CorpusId],[KeywordId]) VALUES ('" + corpusID + "','" + keyId + "')";
+                    DBMSSQL.Update(cmd);
+                    cmd = "INSERT INTO Corpus_PeotryAttri ([CorpusId],[AttributeId]) VALUES ('" + corpusID + "','" + attrId + "')";
+                    DBMSSQL.Update(cmd);
+                break;
+                case "名句":
+                    cmd = "INSERT INTO Corpus_QuoteKey ([CorpusId],[KeywordId]) VALUES ('" + corpusID + "','" + keyId + "')";
+                    DBMSSQL.Update(cmd);
+                    cmd = "INSERT INTO Corpus_QuoteAttri ([CorpusId],[AttributeId]) VALUES ('" + corpusID + "','" + attrId + "')";
+                    DBMSSQL.Update(cmd);
+                break;
+                case "典故古文":
+                    cmd = "INSERT INTO Corpus_AllusionKey ([CorpusId],[KeywordId]) VALUES ('" + corpusID + "','" + keyId + "')";
+                    DBMSSQL.Update(cmd);
+                    cmd = "INSERT INTO Corpus_AllusionAttri ([CorpusId],[AttributeId]) VALUES ('" + corpusID + "','" + attrId + "')";
+                    DBMSSQL.Update(cmd);
+                break;
+                default:
+                    break;
+            }
+        }
+
+        protected void textBoxNullAlert()
+        {
+            Response.Write("<script LANGUAGE='JavaScript' >alert('有欄位為空')</script>");
+        }
+
+        //check for null textbox, and post error message
+        protected bool checkForNull()
+        {
+            switch(type.Text.ToString())
+            {
+                case "成語":
+                    if (text_IdiomTB.Text == "" || explanation_IdiomTB.Text == "")
+                    {
+                        textBoxNullAlert();
+                        return false;
+                    }
+                    break;
+                case "名句":
+                    if (text_QuoteTB.Text == "" || author_QuoteTB.Text == "")
+                    {
+                        textBoxNullAlert();
+                        return false;
+                    }
+                    break;
+                case "詩詞":
+                    if (text_PoetryTB.Text == "" || explanation_PoetryTB.Text == "" || author_PoetryTB.Text == "" || title_PoetryTB.Text == "")
+                    {
+                        textBoxNullAlert();
+                        return false;
+                    }
+                    break;
+                case "典故古文":
+                    if (text_AlluTB.Text == "" || author_AlluTB.Text == "" || explanation_AlluTB.Text == "")
+                    {
+                        textBoxNullAlert();
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+
+        //create btn
+        protected void createNewCorpus(Object sender, EventArgs e)
+        {
+            if (checkForNull())
+            {
+                keyword = keywordTB.Text;
+                attribute = attributeTB.Text;
+                if (type.Text.ToString() == "成語")
+                {
+                    cmd = "INSERT INTO Corpus_Idiom ([Text],[Explanation]) VALUES ('" + text_IdiomTB.Text + "','" + explanation_IdiomTB.Text + "')";
+                    DBMSSQL.Update(cmd);
+                    singledata = DBMSSQL.getSingleData("SELECT Id FROM Corpus_Idiom WHERE Text='"+ text_IdiomTB.Text +"'");
+                }
+                else if (type.Text.ToString() == "名句")
+                {
+                    cmd = "INSERT INTO Corpus_Quote ([Text],[Author]) VALUES ('" + text_QuoteTB.Text + "','" + author_QuoteTB.Text + "')";
+                    DBMSSQL.Update(cmd);
+                    singledata = DBMSSQL.getSingleData("SELECT Id FROM Corpus_Quote WHERE Text='"+ text_QuoteTB.Text +"'");
+                }
+                else if (type.Text.ToString() == "詩詞")
+                {
+                    cmd = "INSERT INTO Corpus_Peotry ([Text],[Author],[Title],[Explanation]) VALUES ('" + text_PoetryTB.Text + "','" + author_PoetryTB.Text + "','" + title_PoetryTB.Text + "','" + explanation_PoetryTB.Text + "')";
+                    DBMSSQL.Update(cmd);
+                    singledata = DBMSSQL.getSingleData("SELECT Id FROM Corpus_Poetry WHERE Text='" + text_PoetryTB.Text + "'");
+                }
+                else if (type.Text.ToString() == "典故古文")
+                {
+                    cmd = "INSERT INTO Corpus_Allusion ([Text],[Author],[Explanation]) VALUES ('" + text_AlluTB.Text + "','" + author_AlluTB.Text + "','" + explanation_AlluTB.Text + "')";
+                    DBMSSQL.Update(cmd);
+                    singledata = DBMSSQL.getSingleData("SELECT Id FROM Corpus_Allusion WHERE Text='" + text_AlluTB.Text + "'");
+                }
+                else
+                {
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('必須選擇一種語料類型')</script>");
+                }
+                if (singledata != null)
+                {
+                    corpusDetail(System.Convert.ToInt32(singledata[0]));
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('輸入完成')</script>");
+                    type.SelectedIndex = 0;
+                }
+            }
+        }
+
+        
+    }
+}

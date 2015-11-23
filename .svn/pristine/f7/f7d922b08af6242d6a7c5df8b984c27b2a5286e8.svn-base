@@ -1,0 +1,24 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="edit_Article.aspx.cs"  MasterPageFile="~/Single_Writing/Single.Master" Inherits="Writting.Single_Writing.edit_Article" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="FeaturedContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+    <div>
+    
+        <asp:Label ID="Label3" runat="server" Text="編輯文章相關資訊："></asp:Label>
+        <br />
+    
+    </div>
+        <asp:Label ID="Label1" runat="server" Text="題目衍生意"></asp:Label>
+        <br />
+        <asp:TextBox ID="Extended_Mean" runat="server" Height="20px" Width="146px"></asp:TextBox>
+        <br />
+        <asp:Label ID="Label2" runat="server" Text="主旨"></asp:Label>
+        <br />
+        <asp:TextBox ID="Keynote" runat="server" Height="20px" Width="146px"></asp:TextBox>
+        <br />
+        <asp:Button ID="Button1" runat="server" OnClick="createArticle" Text="Button" />
+   </asp:Content>

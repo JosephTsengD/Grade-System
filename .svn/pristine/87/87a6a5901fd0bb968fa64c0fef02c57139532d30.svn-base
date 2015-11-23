@@ -1,0 +1,226 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Single.Master.cs" Inherits="Writting.Corpus.Corpus" %>
+
+<!DOCTYPE html>
+<html lang="zh">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>後端編輯系統</title>
+    <asp:PlaceHolder ID="PlaceHolder1" runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+        <%: Scripts.Render("~/bundles/jquery") %>
+        <%: Scripts.Render("~/bundles/jqueryui") %>
+        <%: Scripts.Render("~/bundles/jqueryval") %>   
+    </asp:PlaceHolder>
+    <webopt:BundleReference ID="BundleReference1" runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="head" />
+    <script>
+        $(document).ready(function () {
+            $("#nav-one li").hover(
+                function () { $("ul", this).fadeIn("fast"); },
+                function () { }
+            );
+            if (document.all) {
+                $("#nav-one li").hoverClass("sfHover");
+            }
+        });
+        $.fn.hoverClass = function (c) {
+            return this.each(function () {
+                $(this).hover(
+                    function () { $(this).addClass(c); },
+                    function () { $(this).removeClass(c); }
+                );
+            });
+        };
+    </script>
+    <style type="text/css">
+        .nav, .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            font-family: Arial, Helvetica, sans-serif;
+            z-index: 100;
+            position: relative;
+        }
+
+            .nav li {
+                border-left: 1px solid #000;
+                float: left;
+                margin: 0;
+                padding: 0;
+                position: relative;
+            }
+
+                .nav li a, .nav li a:link, .nav li a:active, .nav li a:visited {
+                    font: bold 1.22em/25px Arial, Helvetica, sans-serif;
+                    background: #565656;
+                    color: #FFFFFF;
+                    display: block;
+                    padding: 0 9px;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                }
+
+                    .nav li a:hover {
+                        background: #ccc;
+                        color: #000;
+                    }
+
+        #nav-one li:hover a,
+        #nav-one li.sfHover a {
+            background: #ccc;
+            color: #000;
+        }
+
+        #nav-one li:hover ul a,
+        #nav-one li.sfHover ul a {
+            background: #565656;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+            #nav-one li:hover ul a:hover,
+            #nav-one li.sfHover ul a:hover {
+                background: #ccc;
+                color: #000;
+            }
+
+        .nav ul {
+            background: #565656;
+            border-bottom: 1px solid #000;
+            list-style: none;
+            margin: 0;
+            width: 100px;
+            position: absolute;
+            top: -999em;
+            left: -1px;
+        }
+
+        .nav li:hover ul,
+        .nav li.sfHover ul {
+            top: 25px;
+        }
+
+        .nav ul li {
+            border: 0;
+            float: none;
+        }
+
+        .nav ul a {
+            border: 1px solid #000;
+            border-bottom: 0;
+            padding-right: 20px;
+            width: 80px;
+            white-space: nowrap;
+        }
+
+            .nav ul a:hover {
+                background: #ccc;
+                color: #000;
+            }
+    </style>
+</head>
+<body>
+    <form id="Form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
+            <Scripts>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">
+                        <span style="color: black; font-size: larger">個人寫作後端編輯專區</span>
+                    </p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
+                                <ul>
+                                    <li><a id="registerLink" runat="server" href="~/Account/Register.aspx">註冊</a></li>
+                                    <li><a id="loginLink" runat="server" href="~/Account/Login.aspx">登入</a></li>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <p>
+                                    Hello, <a id="A1" runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
+                                        <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
+                                    </a>!
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="登出" LogoutPageUrl="~/" />
+                                </p>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </section>
+                    <nav>
+                        <ul id="nav-one" class="nav">
+                            <asp:LoginView ID="navLoginView" runat="server">
+                                <RoleGroups>
+                                    <asp:RoleGroup Roles="Supervisor">
+                                        <ContentTemplate>
+                                            <li><a id="A5" href="~/">上傳專區</a>
+                                                <ul>
+                                                    <li><asp:HyperLink runat="server" NavigateUrl="~/Supervisor/UploadFile.aspx" ID="hl_UploadFile" Text="檔案上傳"></asp:HyperLink></li>
+                                                    <li><asp:HyperLink runat="server" NavigateUrl="~/Supervisor/UploadAlbum.aspx" ID="hl_UploadAlbum" Text="相片上傳"></asp:HyperLink></li>
+                                                    <li><asp:HyperLink runat="server" NavigateUrl="~/Supervisor/FileList.aspx" ID="hl_FileList" Text="檔案列表"></asp:HyperLink></li>
+                                                    <li><asp:HyperLink runat="server" NavigateUrl="~/Supervisor/AlbumList.aspx" ID="hl_AlbumList" Text="相片列表"></asp:HyperLink></li>
+                                                </ul>
+                                            </li>
+                                            <li><a id="A6" href="~/">消息專區</a>
+                                                <ul>
+                                                    <li><asp:HyperLink runat="server" NavigateUrl="~/Supervisor/NewsAdmin.aspx" ID="newsAdminHyperLink">消息管理</asp:HyperLink></li>
+                                                </ul>
+                                            </li>
+                                            <li><a id="A7" runat="server" href="~/">帳戶專區</a>
+                                                <ul>
+                                                    <li><asp:HyperLink runat="server" NavigateUrl="~/Supervisor/ManageUsers.aspx" ID="HyperLink4">帳戶列表</asp:HyperLink></li>
+                                                    <li><asp:HyperLink runat="server" NavigateUrl="~/Supervisor/ManageRoles.aspx" ID="RolesAdminHyperLink">角色管理</asp:HyperLink></li>
+                                                </ul>
+                                            </li>
+                                        </ContentTemplate>
+                                    </asp:RoleGroup>
+                                </RoleGroups>
+                            </asp:LoginView>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" >
+                <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/Corpus/Index.aspx">Index</asp:HyperLink>
+                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Corpus/Create.aspx">Create</asp:HyperLink>
+            </asp:ContentPlaceHolder>
+            <section class="content-wrapper main-content clear-fix">
+                <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder1" />
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>
+                        <!--&copy; <%: DateTime.Now.Year %> - 我的 ASP.NET 應用程式-->
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

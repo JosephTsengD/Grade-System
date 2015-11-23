@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Writting.Single_Writing
+{
+    public partial class create_index : System.Web.UI.Page
+    {
+        private List<List<string>> TitleList;
+        
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            TitleList = DBMSSQL.getDataCollection("SELECT [Id],[Title] FROM Writing_Title");
+        }
+        private bool checkForTitle(string title)
+        {                     
+            if (TitleList != null)
+            {
+                foreach (List<string>item in TitleList)
+                {
+                    if(title==item[1])
+                    {
+                        
+                        return false;
+                    }
+                }
+            }
+            return true;
+
+        }
+
+        protected void createTitle(object sender, EventArgs e)
+        {
+           // Session ["titleid"] = ;
+            string title = Title.Text.ToString();
+            string cmd_createTitle;
+            bool checktitle = checkForTitle(title);
+            if (checktitle)
+            {                
+                cmd_createTitle = "INSERT INTO Writing_Title ([Title]) VALUES ('" + title + "')";
+                DBMSSQL.Update(cmd_createTitle);
+                Response.Redirect("./create_index.aspx");                               
+            }
+            else
+            {
+                Response.Write("<script LANGUAGE='JavaScript' >alert('文章標題已存在,請直接參用或重新輸入')</script>");
+            }
+           
+           
+        }
+
+     
+
+      
+       
+    }
+}

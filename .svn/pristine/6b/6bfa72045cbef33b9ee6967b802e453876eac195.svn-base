@@ -1,0 +1,59 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IdiomDetail.aspx.cs"  MasterPageFile="~/Corpus/Corpus.Master" Inherits="Writting.Corpus.Detail" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <asp:DetailsView ID="DetailsView" runat="server" AutoGenerateRows="False" DataKeyNames="Id" DataSourceID="IdiomDetailSqlDataSource" Height="50px" Width="400px">
+        <Fields>
+            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+            <asp:BoundField DataField="Text" HeaderText="內容" SortExpression="Text" />
+            <asp:BoundField DataField="Explanation" HeaderText="解釋" SortExpression="Explanation" />
+            <asp:BoundField DataField="Keyword" HeaderText="關鍵字" SortExpression="Keyword" />
+            <asp:BoundField DataField="Attribute" HeaderText="狀態" SortExpression="Attribute" />
+        </Fields>
+    </asp:DetailsView>
+    <div id="edit_form">
+        <div>
+            <asp:Label ID="editIdLb" runat="server" Text="Label"></asp:Label>
+        </div>
+        <div>
+            <asp:Label ID="Label13" runat="server" Text="文字："></asp:Label>
+            <asp:TextBox ID="text_IdiomTB" runat="server"></asp:TextBox>
+        </div>
+        <div id="Div10" draggable="auto">
+            <asp:Label ID="Label16" runat="server" Text="解釋："></asp:Label>
+            <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:TextBox id="explanation_IdiomTB" runat="server" Height="200px" TextMode="MultiLine" Width="288px" BorderStyle="Dotted"></asp:TextBox>
+        </div>
+    </div>
+    <asp:Button ID="edit_btn" runat="server" Text="編輯" OnClick="edit_Click"/>
+    <asp:Button ID="delete_btn" runat="server" OnClick="Delete_Click" Text="刪除"  OnClientClick = "Confirm()"/>
+    <script type="text/javascript" charset="utf-8" src="../Scripts/jquery-1.8.2.js"></script>
+    <script>
+        function Confirm() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("確定要刪除嗎")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+        function Edit_Click()
+        {
+            alert('123456');
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#edit_form").hide()
+        })
+    </script>
+    <asp:SqlDataSource ID="IdiomDetailSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:writtingDBConnectionString %>" SelectCommand="SELECT A1.Id, A1.Text, A1.Explanation, A5.Keyword, A4.Attribute FROM Corpus_Idiom AS A1 INNER JOIN Corpus_IdiomKey AS A3 ON A1.Id = A3.CorpusId AND A1.Id = A3.CorpusId INNER JOIN Corpus_IdiomAttri AS A2 ON A1.Id = A2.CorpusId INNER JOIN Corpus_Keyword AS A5 ON A3.KeywordId = A5.Id INNER JOIN Corpus_Attribute AS A4 ON A2.AttributeId = A4.Id WHERE (A1.Id = @Id)" ConflictDetection="CompareAllValues" OldValuesParameterFormatString="original_{0}">
+        <SelectParameters>
+            <asp:QueryStringParameter Name="Id" QueryStringField="Id" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    </asp:Content>

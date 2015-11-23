@@ -1,0 +1,23 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IdiomEdit.aspx.cs" MasterPageFile="~/Corpus/Corpus.Master" Inherits="Writting.Corpus.DetailEdit" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:PlaceHolder ID="textHolder" runat="server" >
+
+    </asp:PlaceHolder>
+    <br />
+    <asp:PlaceHolder ID="explanationHolder" runat="server">
+
+    </asp:PlaceHolder>
+    <br />
+    <asp:PlaceHolder ID="keywordHolder" runat="server">
+
+    </asp:PlaceHolder>
+    <br />
+    <asp:PlaceHolder ID="attributeHolder" runat="server">
+
+    </asp:PlaceHolder>
+    <br />
+    <br />
+    <asp:Button ID="updata_btn" runat="server" Text="更新"  OnClick ="UpdataCorpus"/>
+    <asp:Button ID="cancal_btn" runat="server" Text="取消"  OnClick ="Cancel"/>
+</asp:Content>
