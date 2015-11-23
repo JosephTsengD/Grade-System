@@ -3,6 +3,8 @@
 
 ***
 
+![agiletest.PNG](http://user-image.logdown.io/user/13154/blog/13069/post/316002/xX5EoQVSaasa9sE0K6Mb_agiletest.PNG)
+
 **Description:** 
 Developed a Java system and unit test under agile/extreme programming. According to a lot scenarios, the system had to implement some functions included input all students's grade in the course, show someone's grade, show the rank, update the grade, add and delete student's data. 
 
