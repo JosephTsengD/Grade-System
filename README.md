@@ -10,3 +10,14 @@ Developed a Java system and unit test under agile/extreme programming. According
 
 **Technology:** 
 Java, JUnit, eUML2, Agile method(Pair programming, Extreme Programming)
+
+
+## UML diagram(eUML2):
+![gradesystemuml.PNG](http://user-image.logdown.io/user/13154/blog/13069/post/316383/KoA8Zy50RnGH26nqltU6_gradesystemuml.PNG)
+
+
+## Test case example(JUnit):
+![test1.PNG](http://user-image.logdown.io/user/13154/blog/13069/post/316383/XQJxsPGjTsCaNUdZyq3P_test1.PNG)
+
+![test2.PNG](http://user-image.logdown.io/user/13154/blog/13069/post/316383/vQCxEW4Q2qt1KNLJM7Vg_test2.PNG)
+
